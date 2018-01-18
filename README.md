@@ -64,7 +64,7 @@ Value를 파싱하여 얻은 변수:
 
 # 목표
 
-`TypeChecker.js` 파일을 열어서 메서드내 논리식을 구현하십시오.
+`TypeChecker.js` 파일을 열어서 메서드 내 논리식을 구현하십시오.
 
 `TypeChecker.spec.js`는 건드려선 안됩니다.
 
@@ -73,8 +73,6 @@ Value를 파싱하여 얻은 변수:
 ```javascript
 const optional = flagOptional || isExists;
 ```
-
-*`type
 
 # 테스트
 
