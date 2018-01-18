@@ -1,56 +1,66 @@
 # Quiz!
 
-`number[]`와 같이 타입을 나타내는 Query가 있습니다.
+Query에 만족하는 변수만 허용하는 메서드를 구현하려 합니다.
 
-`[1, 2, 3]`와 같은 값이 입력되면 `true`를 나태나고,
+Query(첫 번째 인자)의 양식과 메서드의 사용법은 다음과 같습니다:
 
-`1`처럼 정의한 타입이 아닌 값이 입력되면 `false`를 반환하는 모듈(클래스) `TypeChecker.js`를 구현하고자 합니다.
+usage: `valid(query:string, value:any) : boolean`
 
-구현하려는 모듈 사용법은 다음과 같습니다:
+일반적인 쿼리 표현.
 
-```javascript
-const query = 'number';
-const value = 1;
-const result = new TypeChecker().valid(query, value);
-console.log(result);    // true
-```
+- `.valid('number', 1)` => `true`
+- `.valid('number', '1')` => `false`
+- `.valid('number', undefined)` => `false`
+
+Optional. 값이 누락되어도 허용 됩니다.
+
+- `.valid('?number', 1)` => `true`
+- `.valid('?number', undefined)` => `true`
+
+배열. 빈 배열은 허용하지 않습니다.
+
+- `.valid('number[]', [1, 2, 3]` => `true`
+- `.valid('number[]', []` => `false`
+
+빈 배열 허용.
+
+- `.valid('number[?]', []` => `true`
+- `.valid('number[?]', [1, 2]` => `true`
+
+위 조건들을 만족하는 로직을 구현 해 주세요!
+
+*다른 조건들은 테스트 코드를 참조하시면 됩니다.*
 
 # 이미 구현됨
 
-다행하게도 다음 내용은 구현되었습니다.
+다행히 다음 내용은 이미 구현되어 있습니다.
 
-Query를 파싱하는 부분:
+Query를 파싱하여 얻은 변수:
 
-- `flagOptional`
+- ⓐ `flagOptional`
     - true: 값 생략 가능
     - false: 값 생략 불가능
-- `flagArray`
+- ⓑ `flagArray`
     - true: 배열
     - false: 배열 불가
-- `flagEmptyArray`
+- ⓒ `flagEmptyArray`
     - true: 빈 배열 가능
     - false: 빈 배열 불가
+- ⓣ `type`
+    - `query`에 입력된 타입
+    - `?number[?]`라면 `number`를 담고 있음
 
-Value를 파싱하여 얻은 정보:
+Value를 파싱하여 얻은 변수:
 
-- `isExists`
+- ① `isExists`
     - true: 값이 존재함
     - false: 값이 존재하지 않음
-- `isArray`
+- ② `isArray`
     - true: 값이 배열임 (빈 배열 포함)
     - false: 값이 배열이 아님
-- `isEmptyArray`
+- ③ `isEmptyArray`
     - true: 값이 빈 배열임
-    - false: 값이 빈 배열이 아님 
-
-그리고 현재 변수의 `type`.
-이 값은 단순히 `typeof value`의 결과이므로 자바스크립트의 `typeof`를 어느정도 이해하셔야 합니다.
-
-`typeof []` => `"object"`
-
-`typeof 1` => `"number"`
-
-`typeof undefined` => `"undefined"`
+    - false: 값이 빈 배열이 아님
 
 # 목표
 
@@ -63,6 +73,8 @@ Value를 파싱하여 얻은 정보:
 ```javascript
 const optional = flagOptional || isExists;
 ```
+
+*`type
 
 # 테스트
 
